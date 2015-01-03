@@ -2,6 +2,9 @@
 <resources>
     <style name="LightTheme" parent="android:Theme.Holo.Light">
       <item name="android:actionBarStyle">@style/action_bar_light</item>
+      <item name="android:textViewStyle">@style/LightTextViewStyle</item>
+      <item name="android:buttonStyle">@style/LightButtonStyle</item>
+      <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="LightTheme.NoActionBar">

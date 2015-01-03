@@ -8,5 +8,15 @@
 
   <style name="title_text" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
     <item name="android:textColor">@android:color/white</item>
+    <item name="android:textSize">10dp</item>
+  </style>
+
+  <style name="LightTextViewStyle" parent="android:Widget.TextView">
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textSize">25dp</item>
+  </style>
+
+  <style name="LightButtonStyle" parent="android:Widget.Holo.Button">
+    <item name="android:fontFamily">sans-serif-light</item>
   </style>
 </resources>
