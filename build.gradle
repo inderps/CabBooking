@@ -13,6 +13,9 @@ apply plugin: 'android'
 android {
     buildToolsVersion "19.1.0"
     compileSdkVersion 19
+    lintOptions {
+        abortOnError false
+    }
 }
 repositories {
     mavenCentral()
@@ -20,4 +23,7 @@ repositories {
 
 dependencies {
     compile files('libs/activeandroid-3.0.jar')
+    compile 'com.squareup.retrofit:retrofit:1.8.0'
+    compile 'com.google.code.gson:gson:2.3'
+    compile 'org.parceler:parceler:0.2.15'
 }
