@@ -27,3 +27,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3'
     compile 'org.parceler:parceler:0.2.15'
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2.1'
+}
