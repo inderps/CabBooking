@@ -1,9 +1,11 @@
-package org.porter;
+package org.porter.mobile.booking;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import org.porter.R;
 
 
 public class NewRideActivity extends Activity {
