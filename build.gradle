@@ -14,3 +14,10 @@ android {
     buildToolsVersion "19.1.0"
     compileSdkVersion 19
 }
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile files('libs/activeandroid-3.0.jar')
+}
