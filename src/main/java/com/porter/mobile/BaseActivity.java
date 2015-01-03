@@ -1,9 +1,7 @@
-package org.porter.mobile;
+package com.porter.mobile;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import org.porter.R;
 

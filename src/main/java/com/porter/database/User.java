@@ -1,4 +1,4 @@
-package org.porter.database;
+package com.porter.database;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;

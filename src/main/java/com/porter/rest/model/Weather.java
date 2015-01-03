@@ -1,4 +1,4 @@
-package org.porter.rest.model;
+package com.porter.rest.model;
 
 import com.google.gson.annotations.SerializedName;
 

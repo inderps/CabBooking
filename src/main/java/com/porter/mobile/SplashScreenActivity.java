@@ -1,11 +1,11 @@
-package org.porter.mobile;
+package com.porter.mobile;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import org.porter.R;
-import org.porter.mobile.booking.NewRideActivity;
+import com.porter.mobile.booking.NewRideActivity;
 
 public class SplashScreenActivity extends Activity {
 

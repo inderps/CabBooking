@@ -1,19 +1,10 @@
-package org.porter.mobile.booking;
+package com.porter.mobile.booking;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import org.porter.R;
-import org.porter.database.User;
-import org.porter.mobile.BaseActivity;
-import org.porter.rest.RestClient;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import com.porter.mobile.BaseActivity;
 
 
 public class NewRideActivity extends BaseActivity {

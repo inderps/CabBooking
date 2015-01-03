@@ -1,4 +1,4 @@
-package org.porter.utils;
+package com.porter.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,7 +15,7 @@ public class PorterShared {
   {
     SharedPreferences.Editor editor = getSharedPreferences(context).edit();
     editor.putString(PREF_USER_NAME, userName);
-    editor.commit();
+    editor.apply();
   }
 
   public static String isLoggedIn(Context context)

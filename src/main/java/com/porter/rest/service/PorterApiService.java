@@ -1,8 +1,6 @@
-package org.porter.rest.service;
+package com.porter.rest.service;
 
-import org.porter.rest.model.Weather;
-
-import java.sql.Wrapper;
+import com.porter.rest.model.Weather;
 
 import retrofit.Callback;
 import retrofit.http.GET;

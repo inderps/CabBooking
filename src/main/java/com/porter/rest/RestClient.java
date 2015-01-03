@@ -1,9 +1,9 @@
-package org.porter.rest;
+package com.porter.rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.porter.rest.service.PorterApiService;
+import com.porter.rest.service.PorterApiService;
 
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
