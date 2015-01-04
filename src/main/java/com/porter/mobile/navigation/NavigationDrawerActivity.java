@@ -60,6 +60,9 @@ public class NavigationDrawerActivity extends BaseActivity
 
   @Override
   public void onNavigationDrawerItemSelected(int position) {
+    if(position == 0){
+      position = 1;
+    }
     FragmentManager fragmentManager = getFragmentManager();
     Fragment fragment = drawerItems.get(position).getFragment();
     fragmentManager.beginTransaction()
