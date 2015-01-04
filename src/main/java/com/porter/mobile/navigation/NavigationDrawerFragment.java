@@ -22,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.porter.mobile.BaseActivity;
+
 import org.porter.R;
 
 import java.util.ArrayList;
@@ -261,7 +263,7 @@ public class NavigationDrawerFragment extends Fragment {
     ActionBar actionBar = getActionBar();
     actionBar.setDisplayShowTitleEnabled(true);
     actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-    actionBar.setTitle(R.string.app_name);
+    ((BaseActivity)getActivity()).setTitleActionBar(getString(R.string.app_name));
   }
 
   private ActionBar getActionBar() {

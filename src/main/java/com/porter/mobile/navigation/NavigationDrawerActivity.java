@@ -8,11 +8,12 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 
+import com.porter.mobile.BaseActivity;
 import com.porter.mobile.booking.NewRideFragment;
 
 import org.porter.R;
 
-public class NavigationDrawerActivity extends Activity
+public class NavigationDrawerActivity extends BaseActivity
     implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
   private NavigationDrawerFragment mNavigationDrawerFragment;
@@ -64,7 +65,7 @@ public class NavigationDrawerActivity extends Activity
     ActionBar actionBar = getActionBar();
     actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
     actionBar.setDisplayShowTitleEnabled(true);
-    actionBar.setTitle(mTitle);
+    setTitleActionBar(mTitle.toString());
   }
 
 
