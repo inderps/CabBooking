@@ -2,8 +2,13 @@
 <resources>
 
     <string name="app_name">Porter</string>
-    <string name="new_ride_title">New Ride</string>
-    <string name="action_settings">Settings</string>
+
+    <string name="rate_card_title">Rate Card</string>
+    <string name="about_us_title">About Us</string>
+    <string name="call_support_title">Call Support</string>
+    <string name="terms_of_use_title">Terms of Use</string>
+    <string name="privacy_policy_title">Privacy Policy</string>
+
     <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>

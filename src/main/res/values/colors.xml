@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="blue">#0c9dcd</color>
+  <color name="navigation_background">#292c2e</color>
+  <color name="navigation_divider">#5e5e5e</color>
 </resources>

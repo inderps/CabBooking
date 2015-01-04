@@ -1,5 +1,6 @@
-package com.porter.mobile.navigation;
+package com.porter.mobile.navigation.item;
 
+import android.app.Fragment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
@@ -9,26 +10,22 @@ import android.widget.TextView;
 
 import org.porter.R;
 
-class DrawerItem implements Parcelable {
+public class DrawerItem implements Parcelable {
   private int title;
   private int icon;
-  private int actionBarTitle;
 
-  public DrawerItem(int title, int icon, int actionBarTitle) {
+  public DrawerItem(int title, int icon) {
     this.title = title;
     this.icon = icon;
-    this.actionBarTitle = actionBarTitle;
   }
 
-  public DrawerItem(int title, int actionBarTitle) {
+  public DrawerItem(int title) {
     this.title = title;
-    this.actionBarTitle = actionBarTitle;
   }
 
   public DrawerItem(Parcel parcel) {
     title = parcel.readInt();
     icon = parcel.readInt();
-    actionBarTitle = parcel.readInt();
   }
 
   public int getTitle() {
@@ -47,10 +44,6 @@ class DrawerItem implements Parcelable {
     return true;
   }
 
-  public int getActionBarTitle() {
-    return actionBarTitle;
-  }
-
   public void renderData(View view) {
     ViewGroup layout = (ViewGroup) view;
     ImageView iconView = (ImageView) layout.findViewById(R.id.drawer_item_icon);
@@ -66,7 +59,6 @@ class DrawerItem implements Parcelable {
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeInt(title);
     dest.writeInt(icon);
-    dest.writeInt(actionBarTitle);
   }
 
   public static final Parcelable.Creator<DrawerItem> CREATOR = new Parcelable.Creator<DrawerItem>() {
@@ -80,4 +72,8 @@ class DrawerItem implements Parcelable {
     }
 
   };
+
+  public Fragment getFragment(){
+    return new Fragment();
+  }
 }
