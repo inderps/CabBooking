@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import org.porter.R;
 import com.porter.mobile.booking.NewRideActivity;
+import com.porter.mobile.navigation.NavigationDrawerActivity;
 
 public class SplashScreenActivity extends Activity {
 
@@ -24,7 +25,7 @@ public class SplashScreenActivity extends Activity {
             wait(4000);
           }
         } catch (InterruptedException ex) { }
-        Intent intent = new Intent(getApplicationContext(), NewRideActivity.class);
+        Intent intent = new Intent(getApplicationContext(), NavigationDrawerActivity.class);
         startActivity(intent);
         finish();
         splashThread.interrupt();

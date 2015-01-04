@@ -50,6 +50,10 @@
             android:name="com.porter.mobile.booking.NewRideActivity"
             android:label="@string/title_activity_new_ride" >
         </activity>
+        <activity
+            android:name="com.porter.mobile.navigation.NavigationDrawerActivity"
+            android:label="@string/title_activity_navigation_drawer" >
+        </activity>
     </application>
 
 </manifest>
