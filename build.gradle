@@ -8,11 +8,11 @@ buildscript {
     }
 }
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 android {
-    buildToolsVersion "19.1.0"
-    compileSdkVersion 19
+    buildToolsVersion "21.1.2"
+    compileSdkVersion 18
     lintOptions {
         abortOnError false
     }
@@ -22,10 +22,9 @@ repositories {
 }
 
 dependencies {
-    compile files('libs/activeandroid-3.0.jar')
     compile 'com.squareup.retrofit:retrofit:1.8.0'
     compile 'com.google.code.gson:gson:2.3'
-    compile 'org.parceler:parceler:0.2.15'
+    compile files('libs/activeandroid-3.0.jar')
     compile 'com.android.support:support-v4:21.0.3'
 }
 
