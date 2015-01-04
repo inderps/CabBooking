@@ -9,7 +9,7 @@ public abstract class BaseActivity extends Activity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_base, menu);
+    getMenuInflater().inflate(R.menu.global, menu);
     return true;
   }
 }
