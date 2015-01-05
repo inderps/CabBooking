@@ -5,6 +5,7 @@
   android:id="@+id/drawer_layout"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:background="@color/white"
   tools:context="com.porter.mobile.navigation.NavigationDrawerActivity">
 
   <!-- As the main content view, the view below consumes the entire
@@ -22,7 +23,7 @@
   <!-- The drawer is given a fixed width in dp and extends the full height of
          the container. -->
   <fragment android:id="@+id/navigation_drawer"
-            android:layout_width="@dimen/navigation_drawer_width"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:name="com.porter.mobile.navigation.NavigationDrawerFragment"

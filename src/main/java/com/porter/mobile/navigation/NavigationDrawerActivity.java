@@ -10,8 +10,11 @@ import android.view.Menu;
 import com.porter.mobile.BaseActivity;
 import com.porter.mobile.booking.NewRideFragment;
 import com.porter.mobile.navigation.item.AboutUsDrawerItem;
+import com.porter.mobile.navigation.item.BookMyRidesDrawerItem;
 import com.porter.mobile.navigation.item.CallSupportDrawerItem;
 import com.porter.mobile.navigation.item.DrawerItem;
+import com.porter.mobile.navigation.item.MyFavouritesDrawerItem;
+import com.porter.mobile.navigation.item.MyRidesDrawerItem;
 import com.porter.mobile.navigation.item.PrivacyPolicyDrawerItem;
 import com.porter.mobile.navigation.item.RateCardDrawerItem;
 import com.porter.mobile.navigation.item.TermsOfUseDrawerItem;
@@ -42,11 +45,15 @@ public class NavigationDrawerActivity extends BaseActivity
     mNavigationDrawerFragment.setUp(
         R.id.navigation_drawer,
         (DrawerLayout) findViewById(R.id.drawer_layout));
+    onNavigationDrawerItemSelected(2);
   }
 
   private void initializeDrawerItems() {
     drawerItems = new ArrayList<DrawerItem>();
     drawerItems.add(new UserInfoDrawerItem());
+    drawerItems.add(new MyFavouritesDrawerItem());
+    drawerItems.add(new BookMyRidesDrawerItem());
+    drawerItems.add(new MyRidesDrawerItem());
     drawerItems.add(new RateCardDrawerItem());
     drawerItems.add(new AboutUsDrawerItem());
     drawerItems.add(new CallSupportDrawerItem());
@@ -60,9 +67,6 @@ public class NavigationDrawerActivity extends BaseActivity
 
   @Override
   public void onNavigationDrawerItemSelected(int position) {
-    if(position == 0){
-      position = 1;
-    }
     FragmentManager fragmentManager = getFragmentManager();
     Fragment fragment = drawerItems.get(position).getFragment();
     fragmentManager.beginTransaction()

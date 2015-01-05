@@ -3,6 +3,10 @@
 
     <string name="app_name">Porter</string>
 
+    <string name="profiles_title">Profiles</string>
+    <string name="my_favourites_title">My Favourites</string>
+    <string name="book_my_rides_title">Book My Rides</string>
+    <string name="my_rides_title">My Rides</string>
     <string name="rate_card_title">Rate Card</string>
     <string name="about_us_title">About Us</string>
     <string name="call_support_title">Call Support</string>

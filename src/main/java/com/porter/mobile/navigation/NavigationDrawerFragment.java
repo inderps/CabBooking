@@ -79,7 +79,6 @@ public class NavigationDrawerFragment extends Fragment {
       mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
       mFromSavedInstanceState = true;
     }
-    
     // Select either the default item (0) or the last selected item.
     selectItem(mCurrentSelectedPosition);
   }
@@ -123,7 +122,7 @@ public class NavigationDrawerFragment extends Fragment {
     mDrawerLayout = drawerLayout;
 
     // set a custom shadow that overlays the main content when the drawer opens
-    mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+//    mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
     // set up the drawer's list view with items and click listener
 
     ActionBar actionBar = getActionBar();

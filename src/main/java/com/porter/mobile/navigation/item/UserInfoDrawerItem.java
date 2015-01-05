@@ -12,7 +12,7 @@ import org.porter.R;
 
 public class UserInfoDrawerItem extends DrawerItem{
   public UserInfoDrawerItem() {
-    super(R.string.rate_card_title);
+    super(R.string.profiles_title);
   }
 
   @Override
@@ -32,7 +32,7 @@ public class UserInfoDrawerItem extends DrawerItem{
 
   @Override
   public boolean isEnabled() {
-    return false;
+    return true;
   }
 
   @Override
