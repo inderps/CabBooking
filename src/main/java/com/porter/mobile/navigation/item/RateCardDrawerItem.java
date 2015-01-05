@@ -8,7 +8,7 @@ import org.porter.R;
 
 public class RateCardDrawerItem extends DrawerItem{
   public RateCardDrawerItem() {
-    super(R.string.rate_card_title);
+    super(R.string.rate_card_title, R.drawable.rate_icon);
   }
 
   @Override

@@ -8,7 +8,7 @@ import org.porter.R;
 
 public class AboutUsDrawerItem extends DrawerItem{
   public AboutUsDrawerItem() {
-    super(R.string.about_us_title);
+    super(R.string.about_us_title, R.drawable.about_icon);
   }
 
   @Override

@@ -8,7 +8,7 @@ import org.porter.R;
 
 public class CallSupportDrawerItem extends DrawerItem{
   public CallSupportDrawerItem() {
-    super(R.string.call_support_title);
+    super(R.string.call_support_title, R.drawable.call_icon);
   }
 
   @Override

@@ -47,7 +47,13 @@ public class DrawerItem implements Parcelable {
   public void renderData(View view) {
     ViewGroup layout = (ViewGroup) view;
     ImageView iconView = (ImageView) layout.findViewById(R.id.drawer_item_icon);
-    iconView.setImageResource(icon);
+    if(icon == 0){
+      iconView.setVisibility(View.GONE);
+    }
+    else{
+      iconView.setVisibility(View.VISIBLE);
+      iconView.setImageResource(icon);
+    }
     TextView titleView = (TextView) layout.findViewById(R.id.drawer_item_text);
     titleView.setText(title);
   }
