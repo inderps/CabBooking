@@ -11,8 +11,4 @@ public class PrivacyPolicyDrawerItem extends DrawerItem{
     super(R.string.privacy_policy_title);
   }
 
-  @Override
-  public Fragment getFragment(){
-    return NewRideFragment.newInstance();
-  }
 }

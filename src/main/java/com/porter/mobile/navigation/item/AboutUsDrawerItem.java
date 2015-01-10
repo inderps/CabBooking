@@ -11,8 +11,4 @@ public class AboutUsDrawerItem extends DrawerItem{
     super(R.string.about_us_title, R.drawable.about_icon);
   }
 
-  @Override
-  public Fragment getFragment(){
-    return NewRideFragment.newInstance();
-  }
 }

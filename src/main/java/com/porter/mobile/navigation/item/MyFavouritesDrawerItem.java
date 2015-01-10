@@ -12,8 +12,4 @@ public class MyFavouritesDrawerItem extends DrawerItem{
     super(R.string.my_favourites_title, R.drawable.my_favourites_icon);
   }
 
-  @Override
-  public Fragment getFragment(){
-    return NewRideFragment.newInstance();
-  }
 }

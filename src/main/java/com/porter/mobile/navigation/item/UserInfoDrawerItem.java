@@ -16,11 +16,6 @@ public class UserInfoDrawerItem extends DrawerItem{
   }
 
   @Override
-  public Fragment getFragment(){
-    return NewRideFragment.newInstance();
-  }
-
-  @Override
   public int getLayout() {
     return R.layout.user_info_drawer_item;
   }

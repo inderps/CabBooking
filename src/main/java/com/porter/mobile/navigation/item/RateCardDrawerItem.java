@@ -11,8 +11,4 @@ public class RateCardDrawerItem extends DrawerItem{
     super(R.string.rate_card_title, R.drawable.rate_icon);
   }
 
-  @Override
-  public Fragment getFragment(){
-    return NewRideFragment.newInstance();
-  }
 }

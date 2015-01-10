@@ -11,8 +11,4 @@ public class MyRidesDrawerItem extends DrawerItem{
     super(R.string.my_rides_title, R.drawable.my_ride_icon);
   }
 
-  @Override
-  public Fragment getFragment(){
-    return NewRideFragment.newInstance();
-  }
 }

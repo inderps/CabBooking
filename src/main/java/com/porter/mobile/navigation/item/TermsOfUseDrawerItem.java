@@ -11,8 +11,4 @@ public class TermsOfUseDrawerItem extends DrawerItem{
     super(R.string.terms_of_use_title);
   }
 
-  @Override
-  public Fragment getFragment(){
-    return NewRideFragment.newInstance();
-  }
 }

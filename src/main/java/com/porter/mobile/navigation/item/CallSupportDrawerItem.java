@@ -11,8 +11,4 @@ public class CallSupportDrawerItem extends DrawerItem{
     super(R.string.call_support_title, R.drawable.call_icon);
   }
 
-  @Override
-  public Fragment getFragment(){
-    return NewRideFragment.newInstance();
-  }
 }
