@@ -11,10 +11,23 @@ buildscript {
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'porter'
+            keyPassword 'porter'
+            storeFile file('/Users/inderpal/projects/personal/customerApp/key')
+            storePassword 'porter'
+        }
+    }
     buildToolsVersion "21.1.2"
     compileSdkVersion 18
     lintOptions {
         abortOnError false
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
     }
 }
 repositories {
@@ -26,6 +39,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3'
     compile files('libs/activeandroid-3.0.jar')
     compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.google.android.gms:play-services:6.5.87'
 }
 
 task wrapper(type: Wrapper) {
