@@ -1,14 +1,60 @@
 package com.porter.mobile.booking;
 
+import android.app.Dialog;
 import android.app.Fragment;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.porter.utils.PorterConstants;
 
 import org.porter.R;
 
-public class NewRideFragment extends Fragment {
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+public class NewRideFragment extends Fragment implements LocationListener,
+    GoogleApiClient.ConnectionCallbacks,
+    GoogleApiClient.OnConnectionFailedListener{
+  private static View view;
+  // A request to connect to Location Services
+  private GoogleApiClient mGoogleApiClient;
+  private LocationRequest mLocationRequest;
+  GoogleMap mGoogleMap;
+  // Stores the current instantiation of the location client in this object
+//  private LocationClient mLocationClient;
+  boolean mUpdatesRequested = false;
+  private TextView markerText;
+  private LatLng center;
+  private LinearLayout markerLayout;
+  private Geocoder geocoder;
+  private TextView Address;
+  private List<android.location.Address> addresses;
+
 
   public static NewRideFragment newInstance() {
     NewRideFragment fragment = new NewRideFragment();
@@ -21,6 +67,7 @@ public class NewRideFragment extends Fragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     //    RestClient restClient = new RestClient();
 //    Callback callback = new Callback() {
 //      @Override
@@ -44,6 +91,237 @@ public class NewRideFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_new_ride, container, false);
+//    return inflater.inflate(R.layout.fragment_new_ride, container, false);
+    if (view != null) {
+      ViewGroup parent = (ViewGroup) view.getParent();
+      if (parent != null)
+        parent.removeView(view);
+    }
+    try {
+      view = inflater.inflate(R.layout.fragment_new_ride, container, false);
+    } catch (InflateException e) {
+        /* map is already there, just return view as it is */
+    }
+    return view;
+  }
+
+  @Override
+  public void onViewCreated(View view, Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    markerText = (TextView) view.findViewById(R.id.locationMarkertext);
+    Address = (TextView) view.findViewById(R.id.adressText);
+    markerLayout = (LinearLayout) view.findViewById(R.id.locationMarker);
+    int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity().getApplicationContext());
+
+    if (status != ConnectionResult.SUCCESS) {
+      int requestCode = 10;
+      Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, getActivity(), requestCode);
+      dialog.show();
+    } else { // Google Play Services are available
+
+      // Getting reference to the SupportMapFragment
+      // Create a new global location parameters object
+      mLocationRequest = LocationRequest.create();
+
+            /*
+             * Set the update interval
+             */
+      mLocationRequest.setInterval(PorterConstants.UPDATE_INTERVAL_IN_MILLISECONDS);
+
+      // Use high accuracy
+      mLocationRequest
+          .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+      // Set the interval ceiling to one minute
+      mLocationRequest
+          .setFastestInterval(PorterConstants.FAST_INTERVAL_CEILING_IN_MILLISECONDS);
+
+      // Note that location updates are off until the user turns them on
+      mUpdatesRequested = false;
+
+      mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
+      mGoogleApiClient.connect();
+    }
+  }
+
+  @Override
+  public void onConnected(Bundle bundle) {
+    stupMap();
+  }
+
+  @Override
+  public void onConnectionSuspended(int i) {
+
+  }
+
+  @Override
+  public void onLocationChanged(Location location) {
+
+  }
+
+  @Override
+  public void onConnectionFailed(ConnectionResult connectionResult) {
+
+  }
+
+  private void stupMap() {
+    try {
+      LatLng latLong;
+      // TODO Auto-generated method stub
+      mGoogleMap = ((MapFragment) getFragmentManager().findFragmentById(
+          R.id.map)).getMap();
+
+      // Enabling MyLocation in Google Map
+      mGoogleMap.setMyLocationEnabled(true);
+      Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+      if (location != null) {
+        latLong = new LatLng(location
+            .getLatitude(), location
+            .getLongitude());
+      } else {
+        latLong = new LatLng(12.9667, 77.5667);
+      }
+      CameraPosition cameraPosition = new CameraPosition.Builder()
+          .target(latLong).zoom(19f).tilt(70).build();
+
+      mGoogleMap.setMyLocationEnabled(true);
+      mGoogleMap.animateCamera(CameraUpdateFactory
+          .newCameraPosition(cameraPosition));
+      // Clears all the existing markers
+      mGoogleMap.clear();
+
+      mGoogleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+
+        @Override
+        public void onCameraChange(CameraPosition arg0) {
+          // TODO Auto-generated method stub
+          center = mGoogleMap.getCameraPosition().target;
+
+          markerText.setText(" Set your Location ");
+          mGoogleMap.clear();
+          markerLayout.setVisibility(View.VISIBLE);
+
+          try {
+            new GetLocationAsync(center.latitude, center.longitude)
+                .execute();
+
+          } catch (Exception e) {
+          }
+        }
+      });
+
+      markerLayout.setOnClickListener(new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+          // TODO Auto-generated method stub
+
+          try {
+
+            LatLng latLng1 = new LatLng(center.latitude,
+                center.longitude);
+
+            Marker m = mGoogleMap.addMarker(new MarkerOptions()
+                .position(latLng1)
+                .title(" Set your Location ")
+                .snippet("")
+                .icon(BitmapDescriptorFactory
+                    .fromResource(R.drawable.marker)));
+            m.setDraggable(true);
+
+            markerLayout.setVisibility(View.GONE);
+          } catch (Exception e) {
+          }
+
+        }
+      });
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    setCurrentLocation();
+  }
+
+  private void setCurrentLocation() {
+    mGoogleMap.setMyLocationEnabled(true);
+//
+//    Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+//    if (location != null) {
+//      latLong = new LatLng(location
+//          .getLatitude(), location
+//          .getLongitude());
+//    } else {
+//      latLong = new LatLng(12.9667, 77.5667);
+//    }
+//    CameraPosition cameraPosition = new CameraPosition.Builder()
+//        .target(latLong).zoom(19f).tilt(70).build();
+//
+//    mGoogleMap.setMyLocationEnabled(true);
+//    mGoogleMap.animateCamera(CameraUpdateFactory
+//        .newCameraPosition(cameraPosition));
+
+  }
+
+  private class GetLocationAsync extends AsyncTask<String, Void, String> {
+
+    // boolean duplicateResponse;
+    double x, y;
+    StringBuilder str;
+
+    public GetLocationAsync(double latitude, double longitude) {
+      // TODO Auto-generated constructor stub
+
+      x = latitude;
+      y = longitude;
+    }
+
+    @Override
+    protected void onPreExecute() {
+      Address.setText(" Getting location ");
+    }
+
+    @Override
+    protected String doInBackground(String... params) {
+
+      try {
+        geocoder = new Geocoder(getActivity().getApplicationContext(), Locale.ENGLISH);
+        addresses = geocoder.getFromLocation(x, y, 1);
+        str = new StringBuilder();
+        if (geocoder.isPresent()) {
+          Address returnAddress = addresses.get(0);
+
+          String localityString = returnAddress.getLocality();
+          String city = returnAddress.getCountryName();
+          String region_code = returnAddress.getCountryCode();
+          String zipcode = returnAddress.getPostalCode();
+
+          str.append(localityString + "");
+          str.append(city + "" + region_code + "");
+          str.append(zipcode + "");
+
+        } else {
+        }
+      } catch (IOException e) {
+        Log.e("tag", e.getMessage());
+      }
+      return null;
+
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+      try {
+        Address.setText(addresses.get(0).getAddressLine(0)
+            + addresses.get(0).getAddressLine(1) + " ");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+
+    @Override
+    protected void onProgressUpdate(Void... values) {
+
+    }
   }
 }
