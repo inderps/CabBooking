@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -41,14 +40,11 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener,
     AdapterView.OnItemClickListener {
+
   // A request to connect to Location Services
   private GoogleApiClient mGoogleApiClient;
   private LocationRequest mLocationRequest;
   GoogleMap mGoogleMap;
-  // Stores the current instantiation of the location client in this object
-//  private LocationClient mLocationClient;
-  boolean mUpdatesRequested = false;
-  private TextView markerText;
   private LatLng center;
   private LinearLayout markerLayout;
   private Geocoder geocoder;
@@ -97,7 +93,6 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-     markerText = (TextView) view.findViewById(R.id.locationMarkertext);
      addressView = (AutoCompleteTextView) view.findViewById(R.id.address);
      markerLayout = (LinearLayout) view.findViewById(R.id.locationMarker);
 
@@ -157,15 +152,13 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
     manuallyChosenPlace = true;
     AutosuggestedPlace place = ((PlacesAutoCompleteAdapter) adapterView.getAdapter()).getPlace(position);
     new GoToSelectedPlaceTask(place).execute();
-//    String str = (String) adapterView.getItemAtPosition(position);
-//    Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
   }
 
   private void hideKeyboard() {
     addressView.clearFocus();
     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
         Context.INPUT_METHOD_SERVICE);
-    imm.hideSoftInputFromWindow(addressView.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+    imm.hideSoftInputFromWindow(addressView.getWindowToken(), 0);
   }
 
   private void moveToThisLocation(LatLng latLng){
@@ -189,6 +182,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 
       @Override
       public void onCameraChange(CameraPosition arg0) {
+        hideKeyboard();
         if(manuallyChosenPlace){
           manuallyChosenPlace = false;
           return;
@@ -196,7 +190,6 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 
         // TODO Auto-generated method stub
         center = mGoogleMap.getCameraPosition().target;
-        markerText.setText(" Set your Location ");
         mGoogleMap.clear();
         markerLayout.setVisibility(View.VISIBLE);
 
@@ -208,33 +201,6 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
         }
       }
     });
-
-    markerLayout.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        // TODO Auto-generated method stub
-
-        try {
-
-          LatLng latLng1 = new LatLng(center.latitude,
-              center.longitude);
-
-          Marker m = mGoogleMap.addMarker(new MarkerOptions()
-              .position(latLng1)
-              .title(" Set your Location ")
-              .snippet("")
-              .icon(BitmapDescriptorFactory
-                  .fromResource(R.drawable.marker)));
-          m.setDraggable(true);
-
-          markerLayout.setVisibility(View.GONE);
-        } catch (Exception e) {
-        }
-
-      }
-    });
-
   }
 
   private void initializeMap() {
@@ -258,39 +224,6 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 
   }
 
-  private void stupMap() {
-    try {
-      LatLng latLong;
-      // TODO Auto-generated method stub
-      mGoogleMap = ((MapFragment) getFragmentManager().findFragmentById(
-          R.id.map)).getMap();
-
-      // Enabling MyLocation in Google Map
-      mGoogleMap.setMyLocationEnabled(true);
-      Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-      if (location != null) {
-        latLong = new LatLng(location
-            .getLatitude(), location
-            .getLongitude());
-      } else {
-        latLong = new LatLng(12.9667, 77.5667);
-      }
-      CameraPosition cameraPosition = new CameraPosition.Builder()
-          .target(latLong).zoom(19f).tilt(70).build();
-
-      mGoogleMap.setMyLocationEnabled(true);
-      mGoogleMap.animateCamera(CameraUpdateFactory
-          .newCameraPosition(cameraPosition));
-      // Clears all the existing markers
-      mGoogleMap.clear();
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    setCurrentLocation();
-  }
-
   private void setCurrentLocation() {
     Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
     if (location != null) {
@@ -300,8 +233,6 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
       moveToThisLocation(latLong);
     }
   }
-
-
 
   private class GetLocationAsync extends AsyncTask<String, Void, String> {
 
@@ -336,8 +267,8 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
           String region_code = returnAddress.getCountryCode();
           String zipcode = returnAddress.getPostalCode();
 
-          str.append(localityString + "");
-          str.append(city + "" + region_code + "");
+          str.append(localityString + ", ");
+          str.append(city + ", " + region_code + ", ");
           str.append(zipcode + "");
 
         } else {
@@ -356,6 +287,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
         addressView.setText(addresses.get(0).getAddressLine(0)
             + addresses.get(0).getAddressLine(1) + " ");
         setAutoSuggestAdapter();
+        hideKeyboard();
       } catch (Exception e) {
         e.printStackTrace();
       }
