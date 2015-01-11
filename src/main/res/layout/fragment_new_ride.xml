@@ -37,39 +37,30 @@
       android:src="@drawable/marker" />
   </LinearLayout>
 
-  <LinearLayout
+  <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:background="@android:color/white"
     android:orientation="vertical" >
-
-    <TextView
-      android:id="@+id/textView1"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="10dp"
-      android:text="Selected Location"
-      android:textAppearance="?android:attr/textAppearanceSmall"
-      android:textColor="#28b54c" />
-
-    <TextView
-      android:id="@+id/adressText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="10dp"
-      android:ellipsize="end"
-      android:singleLine="true"
-      android:text="Getting location"
-      android:textSize="16sp" />
+    <ImageView
+      android:layout_width="30dp"
+      android:layout_height="30dp"
+      android:layout_marginTop="5dp"
+      android:layout_marginLeft="5dp"
+      android:src="@drawable/search_icon" />
 
     <AutoCompleteTextView
-      android:id="@+id/autocomplete"
+      android:id="@+id/address"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="40dp"
       android:gravity="center"
       android:paddingLeft="2dp"
-      android:paddingRight="2dp"/>
-  </LinearLayout>
+      android:paddingRight="2dp"
+      android:layout_marginLeft="40dp"
+      android:ellipsize="end"
+      android:singleLine="true"
+      android:textSize="16sp"/>
+  </RelativeLayout>
 
 </FrameLayout>

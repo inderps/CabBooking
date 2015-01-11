@@ -1,28 +1,18 @@
 package com.porter.mobile.booking;
 
-import android.app.Dialog;
-import android.app.Fragment;
-import android.content.Context;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.InflateException;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -38,7 +28,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.porter.mobile.BaseFragment;
 import com.porter.rest.model.AutosuggestedPlace;
 import com.porter.rest.service.GooglePlacesService;
-import com.porter.utils.PorterConstants;
 
 import org.porter.R;
 
@@ -61,7 +50,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   private LatLng center;
   private LinearLayout markerLayout;
   private Geocoder geocoder;
-  private TextView Address;
+  private AutoCompleteTextView addressView;
   private List<android.location.Address> addresses;
 
 
@@ -106,10 +95,10 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
      markerText = (TextView) view.findViewById(R.id.locationMarkertext);
-     Address = (TextView) view.findViewById(R.id.adressText);
+     addressView = (AutoCompleteTextView) view.findViewById(R.id.address);
      markerLayout = (LinearLayout) view.findViewById(R.id.locationMarker);
 
-    setupAutoCompleteTextView(view);
+    bindAutoComplete(addressView);
     if(mGoogleApiClient == null){
       mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
       mGoogleApiClient.connect();
@@ -147,10 +136,9 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 //    }
   }
 
-  private void setupAutoCompleteTextView(View view) {
-    AutoCompleteTextView autoCompView = (AutoCompleteTextView) view.findViewById(R.id.autocomplete);
-    autoCompView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.autocomplete_item));
-    autoCompView.setOnItemClickListener(this);
+  private void bindAutoComplete(AutoCompleteTextView view) {
+    view.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.autocomplete_item));
+    view.setOnItemClickListener(this);
   }
 
   @Override
@@ -307,7 +295,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 
     @Override
     protected void onPreExecute() {
-      Address.setText(" Getting location ");
+      addressView.setText(" Getting location ");
     }
 
     @Override
@@ -341,7 +329,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
     @Override
     protected void onPostExecute(String result) {
       try {
-        Address.setText(addresses.get(0).getAddressLine(0)
+        addressView.setText(addresses.get(0).getAddressLine(0)
             + addresses.get(0).getAddressLine(1) + " ");
       } catch (Exception e) {
         e.printStackTrace();
