@@ -1,5 +1,6 @@
 package com.porter.mobile.booking;
 
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -7,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
@@ -52,6 +54,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   private Geocoder geocoder;
   private AutoCompleteTextView addressView;
   private List<android.location.Address> addresses;
+  private boolean manuallyChosenPlace;
 
 
   public static NewRideFragment newInstance() {
@@ -98,7 +101,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
      addressView = (AutoCompleteTextView) view.findViewById(R.id.address);
      markerLayout = (LinearLayout) view.findViewById(R.id.locationMarker);
 
-    bindAutoComplete(addressView);
+    bindAutoComplete();
     if(mGoogleApiClient == null){
       mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
       mGoogleApiClient.connect();
@@ -136,18 +139,33 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 //    }
   }
 
-  private void bindAutoComplete(AutoCompleteTextView view) {
-    view.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.autocomplete_item));
-    view.setOnItemClickListener(this);
+  private void bindAutoComplete() {
+    setAutoSuggestAdapter();
+    addressView.setOnItemClickListener(this);
+  }
+
+  private void unsetAutoSuggestAdapter() {
+    addressView.setAdapter(null);
+  }
+
+  private void setAutoSuggestAdapter() {
+    addressView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.autocomplete_item));
   }
 
   @Override
   public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
+    manuallyChosenPlace = true;
     AutosuggestedPlace place = ((PlacesAutoCompleteAdapter) adapterView.getAdapter()).getPlace(position);
     new GoToSelectedPlaceTask(place).execute();
 //    String str = (String) adapterView.getItemAtPosition(position);
 //    Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+  }
+
+  private void hideKeyboard() {
+    addressView.clearFocus();
+    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
+        Context.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(addressView.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
   }
 
   private void moveToThisLocation(LatLng latLng){
@@ -171,6 +189,11 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 
       @Override
       public void onCameraChange(CameraPosition arg0) {
+        if(manuallyChosenPlace){
+          manuallyChosenPlace = false;
+          return;
+        }
+
         // TODO Auto-generated method stub
         center = mGoogleMap.getCameraPosition().target;
         markerText.setText(" Set your Location ");
@@ -329,8 +352,10 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
     @Override
     protected void onPostExecute(String result) {
       try {
+        unsetAutoSuggestAdapter();
         addressView.setText(addresses.get(0).getAddressLine(0)
             + addresses.get(0).getAddressLine(1) + " ");
+        setAutoSuggestAdapter();
       } catch (Exception e) {
         e.printStackTrace();
       }
