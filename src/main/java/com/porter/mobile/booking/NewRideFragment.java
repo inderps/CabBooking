@@ -2,9 +2,12 @@ package com.porter.mobile.booking;
 
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +32,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.porter.mobile.BaseFragment;
 import com.porter.utils.PorterConstants;
 
 import org.porter.R;
@@ -37,10 +41,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class NewRideFragment extends Fragment implements LocationListener,
+public class NewRideFragment extends BaseFragment implements LocationListener,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener{
-  private static View view;
   // A request to connect to Location Services
   private GoogleApiClient mGoogleApiClient;
   private LocationRequest mLocationRequest;
@@ -62,6 +65,11 @@ public class NewRideFragment extends Fragment implements LocationListener,
   }
 
   public NewRideFragment() {
+  }
+
+  @Override
+  protected int viewId() {
+    return R.layout.fragment_new_ride;
   }
 
   @Override
@@ -89,64 +97,105 @@ public class NewRideFragment extends Fragment implements LocationListener,
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
-//    return inflater.inflate(R.layout.fragment_new_ride, container, false);
-    if (view != null) {
-      ViewGroup parent = (ViewGroup) view.getParent();
-      if (parent != null)
-        parent.removeView(view);
-    }
-    try {
-      view = inflater.inflate(R.layout.fragment_new_ride, container, false);
-    } catch (InflateException e) {
-        /* map is already there, just return view as it is */
-    }
-    return view;
-  }
-
-  @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    markerText = (TextView) view.findViewById(R.id.locationMarkertext);
-    Address = (TextView) view.findViewById(R.id.adressText);
-    markerLayout = (LinearLayout) view.findViewById(R.id.locationMarker);
-    int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity().getApplicationContext());
-
-    if (status != ConnectionResult.SUCCESS) {
-      int requestCode = 10;
-      Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, getActivity(), requestCode);
-      dialog.show();
-    } else { // Google Play Services are available
-
-      // Getting reference to the SupportMapFragment
-      // Create a new global location parameters object
-      mLocationRequest = LocationRequest.create();
-
-            /*
-             * Set the update interval
-             */
-      mLocationRequest.setInterval(PorterConstants.UPDATE_INTERVAL_IN_MILLISECONDS);
-
-      // Use high accuracy
-      mLocationRequest
-          .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-      // Set the interval ceiling to one minute
-      mLocationRequest
-          .setFastestInterval(PorterConstants.FAST_INTERVAL_CEILING_IN_MILLISECONDS);
-
-      // Note that location updates are off until the user turns them on
-      mUpdatesRequested = false;
-
+     markerText = (TextView) view.findViewById(R.id.locationMarkertext);
+     Address = (TextView) view.findViewById(R.id.adressText);
+     markerLayout = (LinearLayout) view.findViewById(R.id.locationMarker);
+    if(mGoogleApiClient == null){
       mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
       mGoogleApiClient.connect();
     }
+//    int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity().getApplicationContext());
+//
+//    if (status != ConnectionResult.SUCCESS) {
+//      int requestCode = 10;
+//      Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, getActivity(), requestCode);
+//      dialog.show();
+//    } else { // Google Play Services are available
+//
+//      // Getting reference to the SupportMapFragment
+//      // Create a new global location parameters object
+//      mLocationRequest = LocationRequest.create();
+//
+//            /*
+//             * Set the update interval
+//             */
+//      mLocationRequest.setInterval(PorterConstants.UPDATE_INTERVAL_IN_MILLISECONDS);
+//
+//      // Use high accuracy
+//      mLocationRequest
+//          .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//
+//      // Set the interval ceiling to one minute
+//      mLocationRequest
+//          .setFastestInterval(PorterConstants.FAST_INTERVAL_CEILING_IN_MILLISECONDS);
+//
+//      // Note that location updates are off until the user turns them on
+//      mUpdatesRequested = false;
+//
+//    }
   }
 
   @Override
   public void onConnected(Bundle bundle) {
-    stupMap();
+    initializeMap();
+    setCurrentLocation();
+    bindMarker();
+  }
+
+  private void bindMarker() {
+    mGoogleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+
+      @Override
+      public void onCameraChange(CameraPosition arg0) {
+        // TODO Auto-generated method stub
+        center = mGoogleMap.getCameraPosition().target;
+        markerText.setText(" Set your Location ");
+        mGoogleMap.clear();
+        markerLayout.setVisibility(View.VISIBLE);
+
+        try {
+          new GetLocationAsync(center.latitude, center.longitude)
+              .execute();
+
+        } catch (Exception e) {
+        }
+      }
+    });
+
+    markerLayout.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        // TODO Auto-generated method stub
+
+        try {
+
+          LatLng latLng1 = new LatLng(center.latitude,
+              center.longitude);
+
+          Marker m = mGoogleMap.addMarker(new MarkerOptions()
+              .position(latLng1)
+              .title(" Set your Location ")
+              .snippet("")
+              .icon(BitmapDescriptorFactory
+                  .fromResource(R.drawable.marker)));
+          m.setDraggable(true);
+
+          markerLayout.setVisibility(View.GONE);
+        } catch (Exception e) {
+        }
+
+      }
+    });
+
+  }
+
+  private void initializeMap() {
+    mGoogleMap = ((MapFragment) getFragmentManager().findFragmentById(
+        R.id.map)).getMap();
+    mGoogleMap.setMyLocationEnabled(true);
   }
 
   @Override
@@ -190,52 +239,6 @@ public class NewRideFragment extends Fragment implements LocationListener,
       // Clears all the existing markers
       mGoogleMap.clear();
 
-      mGoogleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-
-        @Override
-        public void onCameraChange(CameraPosition arg0) {
-          // TODO Auto-generated method stub
-          center = mGoogleMap.getCameraPosition().target;
-
-          markerText.setText(" Set your Location ");
-          mGoogleMap.clear();
-          markerLayout.setVisibility(View.VISIBLE);
-
-          try {
-            new GetLocationAsync(center.latitude, center.longitude)
-                .execute();
-
-          } catch (Exception e) {
-          }
-        }
-      });
-
-      markerLayout.setOnClickListener(new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-          // TODO Auto-generated method stub
-
-          try {
-
-            LatLng latLng1 = new LatLng(center.latitude,
-                center.longitude);
-
-            Marker m = mGoogleMap.addMarker(new MarkerOptions()
-                .position(latLng1)
-                .title(" Set your Location ")
-                .snippet("")
-                .icon(BitmapDescriptorFactory
-                    .fromResource(R.drawable.marker)));
-            m.setDraggable(true);
-
-            markerLayout.setVisibility(View.GONE);
-          } catch (Exception e) {
-          }
-
-        }
-      });
-
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -244,24 +247,22 @@ public class NewRideFragment extends Fragment implements LocationListener,
   }
 
   private void setCurrentLocation() {
-    mGoogleMap.setMyLocationEnabled(true);
-//
-//    Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-//    if (location != null) {
-//      latLong = new LatLng(location
-//          .getLatitude(), location
-//          .getLongitude());
-//    } else {
-//      latLong = new LatLng(12.9667, 77.5667);
-//    }
-//    CameraPosition cameraPosition = new CameraPosition.Builder()
-//        .target(latLong).zoom(19f).tilt(70).build();
-//
-//    mGoogleMap.setMyLocationEnabled(true);
-//    mGoogleMap.animateCamera(CameraUpdateFactory
-//        .newCameraPosition(cameraPosition));
 
+    Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+    if (location != null) {
+      LatLng latLong = new LatLng(location
+          .getLatitude(), location
+          .getLongitude());
+      CameraPosition cameraPosition = new CameraPosition.Builder()
+          .target(latLong).zoom(19f).build();
+
+      mGoogleMap.setMyLocationEnabled(true);
+      mGoogleMap.animateCamera(CameraUpdateFactory
+          .newCameraPosition(cameraPosition));
+      mGoogleMap.clear();
+    }
   }
+
 
   private class GetLocationAsync extends AsyncTask<String, Void, String> {
 

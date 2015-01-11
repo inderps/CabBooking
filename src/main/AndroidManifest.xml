@@ -53,6 +53,7 @@
 
         <activity
             android:name="com.porter.mobile.navigation.NavigationDrawerActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_navigation_drawer" >
         </activity>
       <meta-data android:name="com.google.android.gms.version"
