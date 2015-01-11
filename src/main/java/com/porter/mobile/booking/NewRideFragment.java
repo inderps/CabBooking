@@ -15,8 +15,11 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -33,6 +36,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.porter.mobile.BaseFragment;
+import com.porter.rest.model.AutosuggestedPlace;
+import com.porter.rest.service.GooglePlacesService;
 import com.porter.utils.PorterConstants;
 
 import org.porter.R;
@@ -43,7 +48,8 @@ import java.util.Locale;
 
 public class NewRideFragment extends BaseFragment implements LocationListener,
     GoogleApiClient.ConnectionCallbacks,
-    GoogleApiClient.OnConnectionFailedListener{
+    GoogleApiClient.OnConnectionFailedListener,
+    AdapterView.OnItemClickListener {
   // A request to connect to Location Services
   private GoogleApiClient mGoogleApiClient;
   private LocationRequest mLocationRequest;
@@ -102,10 +108,14 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
      markerText = (TextView) view.findViewById(R.id.locationMarkertext);
      Address = (TextView) view.findViewById(R.id.adressText);
      markerLayout = (LinearLayout) view.findViewById(R.id.locationMarker);
+
+    setupAutoCompleteTextView(view);
     if(mGoogleApiClient == null){
       mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
       mGoogleApiClient.connect();
     }
+
+
 //    int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity().getApplicationContext());
 //
 //    if (status != ConnectionResult.SUCCESS) {
@@ -135,6 +145,30 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 //      mUpdatesRequested = false;
 //
 //    }
+  }
+
+  private void setupAutoCompleteTextView(View view) {
+    AutoCompleteTextView autoCompView = (AutoCompleteTextView) view.findViewById(R.id.autocomplete);
+    autoCompView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.autocomplete_item));
+    autoCompView.setOnItemClickListener(this);
+  }
+
+  @Override
+  public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+    AutosuggestedPlace place = ((PlacesAutoCompleteAdapter) adapterView.getAdapter()).getPlace(position);
+    new GoToSelectedPlaceTask(place).execute();
+//    String str = (String) adapterView.getItemAtPosition(position);
+//    Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+  }
+
+  private void moveToThisLocation(LatLng latLng){
+    CameraPosition cameraPosition = new CameraPosition.Builder()
+        .target(latLng).zoom(19f).build();
+    mGoogleMap.setMyLocationEnabled(true);
+    mGoogleMap.animateCamera(CameraUpdateFactory
+        .newCameraPosition(cameraPosition));
+    mGoogleMap.clear();
   }
 
   @Override
@@ -247,21 +281,15 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   }
 
   private void setCurrentLocation() {
-
     Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
     if (location != null) {
       LatLng latLong = new LatLng(location
           .getLatitude(), location
           .getLongitude());
-      CameraPosition cameraPosition = new CameraPosition.Builder()
-          .target(latLong).zoom(19f).build();
-
-      mGoogleMap.setMyLocationEnabled(true);
-      mGoogleMap.animateCamera(CameraUpdateFactory
-          .newCameraPosition(cameraPosition));
-      mGoogleMap.clear();
+      moveToThisLocation(latLong);
     }
   }
+
 
 
   private class GetLocationAsync extends AsyncTask<String, Void, String> {
@@ -323,6 +351,25 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
     @Override
     protected void onProgressUpdate(Void... values) {
 
+    }
+  }
+
+  private class GoToSelectedPlaceTask extends AsyncTask<String, Void, LatLng> {
+    private AutosuggestedPlace place;
+
+    public GoToSelectedPlaceTask(AutosuggestedPlace place) {
+      this.place = place;
+    }
+
+    @Override
+    protected LatLng doInBackground(String... urls) {
+      LatLng latLng= GooglePlacesService.getLatLng(place);
+      return latLng;
+    }
+
+    @Override
+    protected void onPostExecute(LatLng latLng) {
+      moveToThisLocation(latLng);
     }
   }
 }

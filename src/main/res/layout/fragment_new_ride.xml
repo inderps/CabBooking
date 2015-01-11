@@ -62,6 +62,14 @@
       android:singleLine="true"
       android:text="Getting location"
       android:textSize="16sp" />
+
+    <AutoCompleteTextView
+      android:id="@+id/autocomplete"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:paddingLeft="2dp"
+      android:paddingRight="2dp"/>
   </LinearLayout>
 
 </FrameLayout>
