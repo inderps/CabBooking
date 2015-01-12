@@ -69,6 +69,11 @@
             android:label="@string/title_activity_register_new_user"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.porter.mobile.login.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
