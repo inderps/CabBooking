@@ -27,12 +27,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.porter.mobile.BaseFragment;
+import com.porter.mobile.booking.vehicle.selector.Vehicle;
+import com.porter.mobile.booking.vehicle.selector.VehicleSelector;
 import com.porter.rest.model.AutosuggestedPlace;
 import com.porter.rest.service.GooglePlacesService;
 
 import org.porter.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -92,11 +95,12 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
+     super.onViewCreated(view, savedInstanceState);
      addressView = (AutoCompleteTextView) view.findViewById(R.id.address);
      markerLayout = (LinearLayout) view.findViewById(R.id.locationMarker);
 
     bindAutoComplete();
+
     if(mGoogleApiClient == null){
       mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
       mGoogleApiClient.connect();
@@ -163,7 +167,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 
   private void moveToThisLocation(LatLng latLng){
     CameraPosition cameraPosition = new CameraPosition.Builder()
-        .target(latLng).zoom(19f).build();
+        .target(latLng).zoom(13f).build();
     mGoogleMap.setMyLocationEnabled(true);
     mGoogleMap.animateCamera(CameraUpdateFactory
         .newCameraPosition(cameraPosition));
