@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">Porter</string>
-
     <string name="profiles_title">Profiles</string>
     <string name="my_favourites_title">My Favourites</string>
     <string name="book_my_rides_title">Book My Rides</string>
@@ -12,8 +11,8 @@
     <string name="call_support_title">Call Support</string>
     <string name="terms_of_use_title">Terms of Use</string>
     <string name="privacy_policy_title">Privacy Policy</string>
-
     <string name="book_now">BOOK NOW</string>
+    <string name="title_activity_register_new_user">SIGN UP</string>
 
     <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
     <string name="title_section1">Section 1</string>
@@ -22,5 +21,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
