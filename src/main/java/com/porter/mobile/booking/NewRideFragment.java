@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 
@@ -144,7 +145,9 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   }
 
   private void unsetAutoSuggestAdapter() {
-    addressView.setAdapter(null);
+
+    ArrayAdapter<String> adapter = null;
+    addressView.setAdapter(adapter);
   }
 
   private void setAutoSuggestAdapter() {
