@@ -7,7 +7,10 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.InflateException;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -55,6 +58,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   private AutoCompleteTextView addressView;
   private List<android.location.Address> addresses;
   private boolean manuallyChosenPlace;
+  private static View view;
 
 
   public static NewRideFragment newInstance() {
@@ -66,10 +70,20 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   }
 
   @Override
-  protected int viewId() {
-    return R.layout.fragment_new_ride;
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+    if (view != null) {
+      ViewGroup parent = (ViewGroup) view.getParent();
+      if (parent != null)
+        parent.removeView(view);
+    }
+    try {
+      view = inflater.inflate(R.layout.fragment_new_ride, container, false);
+    } catch (InflateException e) {
+        /* map is already there, just return view as it is */
+    }
+    return view;
   }
-
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
