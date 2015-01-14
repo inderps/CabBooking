@@ -321,6 +321,12 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
     @Override
     protected void onPostExecute(LatLng latLng) {
       moveToThisLocation(latLng);
+      try {
+        new GetLocationAsync(center.latitude, center.longitude)
+            .execute();
+
+      } catch (Exception e) {
+      }
     }
   }
 }
