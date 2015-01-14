@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -108,6 +109,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
      super.onViewCreated(view, savedInstanceState);
      addressView = (AutoCompleteTextView) view.findViewById(R.id.address);
     bindAutoComplete();
+    bindCurrentLocationIcon(view);
 
     if(mGoogleApiClient == null){
       mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
@@ -172,6 +174,8 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
     AutosuggestedPlace place = ((PlacesAutoCompleteAdapter) adapterView.getAdapter()).getPlace(position);
     new GoToSelectedPlaceTask(place).execute();
   }
+
+
 
   private void hideKeyboard() {
     addressView.clearFocus();
@@ -249,6 +253,16 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
           .getLongitude());
       moveToThisLocation(latLong);
     }
+  }
+
+  private void bindCurrentLocationIcon(View view) {
+    ImageView currentLocationIcon = (ImageView)view.findViewById(R.id.current_location_icon);
+    currentLocationIcon.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        setCurrentLocation();
+      }
+    });
   }
 
   private class GetLocationAsync extends AsyncTask<String, Void, String> {
