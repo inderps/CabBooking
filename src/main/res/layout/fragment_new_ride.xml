@@ -45,8 +45,8 @@
         android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:gravity="center"
-        android:paddingLeft="2dp"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="10dp"
         android:paddingRight="2dp"
         android:layout_marginLeft="30dp"
         android:ellipsize="end"
@@ -67,38 +67,11 @@
     android:layout_gravity="bottom"
     android:gravity="bottom"
     android:orientation="vertical">
-    <RelativeLayout
+    <com.porter.mobile.booking.vehicle.selector.VehicleSelector
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:orientation="vertical">
-      <SeekBar
-        android:id="@+id/vehicle_seek_baar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dip"
-        android:progressDrawable="@drawable/vehicle_seekbar"
-        android:thumb="@drawable/selected_vehicle"/>
-      <RelativeLayout
-        android:id="@+id/vehicles_placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <com.porter.utils.PorterTextView
-          android:layout_width="wrap_content"
-          android:text="Tata 407"
-          style="@style/label_blue_small"
-          android:layout_height="wrap_content"/>
-
-        <com.porter.utils.PorterTextView
-          android:layout_width="wrap_content"
-          android:text="Tata Ace"
-          android:layout_alignParentRight="true"
-          style="@style/label_blue_small"
-          android:layout_height="wrap_content"/>
-      </RelativeLayout>
-    </RelativeLayout>
+      android:layout_marginLeft="50dp"
+      android:layout_marginRight="50dp"/>
   <Button
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

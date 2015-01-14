@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
@@ -9,25 +8,52 @@
     android:id="@+id/vehicle_seek_baar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dip"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="75dip"
     android:progressDrawable="@drawable/vehicle_seekbar"
-    android:thumb="@drawable/selected_vehicle"/>
+    android:thumb="@drawable/hand"/>
   <RelativeLayout
     android:id="@+id/vehicles_placeholder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-    <com.porter.utils.PorterTextView
+    <LinearLayout
+      android:id="@+id/tataace_layout"
       android:layout_width="wrap_content"
-      android:text="Tata 407"
-      style="@style/label_blue_small"
-      android:layout_height="wrap_content"/>
-
-    <com.porter.utils.PorterTextView
+      android:layout_height="wrap_content"
+      android:padding="10dip"
+      android:background="@drawable/vehicle_background"
+      android:orientation="vertical">
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tata_ace"/>
+      <com.porter.utils.PorterTextView
+        android:id="@+id/tataace_label"
+        android:layout_width="wrap_content"
+        android:text="Tata Ace"
+        style="@style/label_blue_small"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+      android:id="@+id/tata909_layout"
       android:layout_width="wrap_content"
-      android:text="Tata Ace"
+      android:layout_height="wrap_content"
+      android:padding="10dip"
+      android:background="@drawable/vehicle_background"
       android:layout_alignParentRight="true"
-      style="@style/label_blue_small"
-      android:layout_height="wrap_content"/>
-    </RelativeLayout>
+      android:orientation="vertical">
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tata_909"/>
+      <com.porter.utils.PorterTextView
+        android:id="@+id/tata909_label"
+        android:layout_width="wrap_content"
+        android:text="Tata 909"
+        style="@style/label_blue_small"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+  </RelativeLayout>
 </RelativeLayout>

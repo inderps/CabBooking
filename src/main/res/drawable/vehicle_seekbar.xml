@@ -3,7 +3,7 @@
   <item android:id="@android:id/background">
     <shape android:shape="line" >
       <stroke
-        android:width="5dp"
+        android:width="3dp"
         android:color="@color/blue" />
     </shape>
   </item>
