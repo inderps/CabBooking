@@ -274,6 +274,9 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
         addresses = geocoder.getFromLocation(latitude, longitude, 1);
         locationAddress = new StringBuilder();
         if (geocoder.isPresent()) {
+          if(addresses.size() == 0){
+            return null;
+          }
           Address returnAddress = addresses.get(0);
 
           locationAddress.append(returnAddress.getAddressLine(0) + ", ");
