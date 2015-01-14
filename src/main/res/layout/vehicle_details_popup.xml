@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+  android:orientation="vertical">
+  <com.porter.utils.PorterTextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:id="@+id/vehicle_name"
+    style="@style/dialog_title"
+    android:layout_marginTop="10dip"
+    android:text="Tata Ace"/>
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginTop="10dip"
+    android:background="@android:color/darker_gray"/>
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="25dip"
+    android:layout_marginRight="25dip"
+    android:weightSum="2"
+    android:layout_marginBottom="25dip"
+    android:orientation="horizontal">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:orientation="vertical">
+      <com.porter.utils.PorterTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="Base fare:"/>
+      <com.porter.utils.PorterTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="Charge per km:"/>
+      <com.porter.utils.PorterTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="Extra Time charge:"/>
+      <com.porter.utils.PorterTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="Extra Point:"/>
+      <com.porter.utils.PorterTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="Night Holding Charges:"/>
+      </LinearLayout>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="right"
+      android:layout_marginLeft="25dip"
+      android:layout_weight="1"
+      android:orientation="vertical">
+      <com.porter.utils.PorterTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="10dip"
+        android:text="200"/>
+      <com.porter.utils.PorterTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="10dip"
+        android:text="30"/>
+      <com.porter.utils.PorterTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="10dip"
+        android:text="75"/>
+      <com.porter.utils.PorterTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="10dip"
+        android:text="50"/>
+      <com.porter.utils.PorterTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="10dip"
+        android:text="800"/>
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

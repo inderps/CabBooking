@@ -30,6 +30,13 @@
     <item name="android:textColor">@color/blue</item>
   </style>
 
+
+  <style name="dialog_title">
+    <item name="android:textSize">17sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">@color/black</item>
+  </style>
+
   <style name="edit_text">
     <item name="android:layout_height">45dip</item>
     <item name="android:layout_marginTop">10dip</item>

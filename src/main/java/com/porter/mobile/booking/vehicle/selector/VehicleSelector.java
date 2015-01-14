@@ -3,11 +3,13 @@ package com.porter.mobile.booking.vehicle.selector;
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
+import com.porter.rest.model.Vehicle;
 import com.porter.utils.PorterTextView;
 
 import org.porter.R;
@@ -21,6 +23,25 @@ public class VehicleSelector extends RelativeLayout {
     setSeekbarAutoMovement();
     selectVehicle(R.id.tataace_layout, R.id.tataace_label);
     unSelectVehicle(R.id.tata909_layout, R.id.tata909_label);
+    bindVehicleDetailsPopup();
+  }
+
+  private void bindVehicleDetailsPopup() {
+    LinearLayout tataAce = (LinearLayout)findViewById(R.id.tataace_layout);
+    tataAce.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+          new VehiclePopup(getContext(), new Vehicle());
+      }
+    });
+
+    LinearLayout tata909 = (LinearLayout)findViewById(R.id.tata909_layout);
+    tata909.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        new VehiclePopup(getContext(), new Vehicle());
+      }
+    });
   }
 
   private void setSeekbarAutoMovement() {
