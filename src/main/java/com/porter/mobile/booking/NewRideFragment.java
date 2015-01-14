@@ -25,21 +25,16 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.porter.mobile.BaseFragment;
-import com.porter.mobile.booking.vehicle.selector.Vehicle;
-import com.porter.mobile.booking.vehicle.selector.VehicleSelector;
 import com.porter.rest.model.AutosuggestedPlace;
+import com.porter.rest.model.Ride;
 import com.porter.rest.service.GooglePlacesService;
 
 import org.porter.R;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -53,12 +48,12 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   private LocationRequest mLocationRequest;
   GoogleMap mGoogleMap;
   private LatLng center;
-  private LinearLayout markerLayout;
   private Geocoder geocoder;
   private AutoCompleteTextView addressView;
   private List<android.location.Address> addresses;
   private boolean manuallyChosenPlace;
   private static View view;
+  private Ride ride;
 
 
   public static NewRideFragment newInstance() {
@@ -66,8 +61,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
     return fragment;
   }
 
-  public NewRideFragment() {
-  }
+  public NewRideFragment() {}
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,6 +81,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    ride = new Ride();
 
     //    RestClient restClient = new RestClient();
 //    Callback callback = new Callback() {
@@ -112,8 +107,6 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   public void onViewCreated(View view, Bundle savedInstanceState) {
      super.onViewCreated(view, savedInstanceState);
      addressView = (AutoCompleteTextView) view.findViewById(R.id.address);
-     markerLayout = (LinearLayout) view.findViewById(R.id.locationMarker);
-
     bindAutoComplete();
 
     if(mGoogleApiClient == null){
@@ -156,10 +149,15 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   private void bindAutoComplete() {
     setAutoSuggestAdapter();
     addressView.setOnItemClickListener(this);
+    addressView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        addressView.setText("");
+      }
+    });
   }
 
   private void unsetAutoSuggestAdapter() {
-
     ArrayAdapter<String> adapter = null;
     addressView.setAdapter(adapter);
   }
@@ -184,7 +182,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 
   private void moveToThisLocation(LatLng latLng){
     CameraPosition cameraPosition = new CameraPosition.Builder()
-        .target(latLng).zoom(13f).build();
+        .target(latLng).zoom(16f).build();
     mGoogleMap.setMyLocationEnabled(true);
     mGoogleMap.animateCamera(CameraUpdateFactory
         .newCameraPosition(cameraPosition));
@@ -209,10 +207,8 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
           return;
         }
 
-        // TODO Auto-generated method stub
         center = mGoogleMap.getCameraPosition().target;
         mGoogleMap.clear();
-        markerLayout.setVisibility(View.VISIBLE);
 
         try {
           new GetLocationAsync(center.latitude, center.longitude)
@@ -257,15 +253,12 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 
   private class GetLocationAsync extends AsyncTask<String, Void, String> {
 
-    // boolean duplicateResponse;
-    double x, y;
-    StringBuilder str;
+    double latitude, longitude;
+    StringBuilder locationAddress;
 
     public GetLocationAsync(double latitude, double longitude) {
-      // TODO Auto-generated constructor stub
-
-      x = latitude;
-      y = longitude;
+      this.latitude = latitude;
+      this.longitude = longitude;
     }
 
     @Override
@@ -278,20 +271,14 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 
       try {
         geocoder = new Geocoder(getActivity().getApplicationContext(), Locale.ENGLISH);
-        addresses = geocoder.getFromLocation(x, y, 1);
-        str = new StringBuilder();
+        addresses = geocoder.getFromLocation(latitude, longitude, 1);
+        locationAddress = new StringBuilder();
         if (geocoder.isPresent()) {
           Address returnAddress = addresses.get(0);
 
-          String localityString = returnAddress.getLocality();
-          String city = returnAddress.getCountryName();
-          String region_code = returnAddress.getCountryCode();
-          String zipcode = returnAddress.getPostalCode();
-
-          str.append(localityString + ", ");
-          str.append(city + ", " + region_code + ", ");
-          str.append(zipcode + "");
-
+          locationAddress.append(returnAddress.getAddressLine(0) + ", ");
+          locationAddress.append(returnAddress.getLocality() + ", ");
+          locationAddress.append(returnAddress.getCountryName());
         } else {
         }
       } catch (IOException e) {
@@ -305,10 +292,8 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
     protected void onPostExecute(String result) {
       try {
         unsetAutoSuggestAdapter();
-        addressView.setText(addresses.get(0).getAddressLine(0)
-            + addresses.get(0).getAddressLine(1) + " ");
+        addressView.setText(locationAddress);
         setAutoSuggestAdapter();
-        hideKeyboard();
       } catch (Exception e) {
         e.printStackTrace();
       }

@@ -25,6 +25,11 @@
     <item name="android:textColor">@color/blue</item>
   </style>
 
+  <style name="label_blue_small">
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">@color/blue</item>
+  </style>
+
   <style name="edit_text">
     <item name="android:layout_height">45dip</item>
     <item name="android:layout_marginTop">10dip</item>

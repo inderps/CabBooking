@@ -15,7 +15,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginBottom="30dp"
+    android:layout_marginBottom="15dp"
     android:gravity="center"
     android:orientation="vertical" >
     <ImageView
@@ -77,34 +77,27 @@
         android:id="@+id/vehicle_seek_baar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
         android:progressDrawable="@drawable/vehicle_seekbar"
         android:thumb="@drawable/selected_vehicle"/>
-      <LinearLayout
+      <RelativeLayout
         android:id="@+id/vehicles_placeholder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
-        <TextView
+        android:orientation="horizontal">
+        <com.porter.utils.PorterTextView
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text=""/>
-        <ImageView
-          android:layout_width="34dp"
-          android:layout_height="34dp"
-          android:layout_weight="1"
-          android:src="@drawable/vehicle"/>
-        <ImageView
-          android:layout_width="34dp"
-          android:layout_height="34dp"
-          android:layout_weight="1"
-          android:src="@drawable/vehicle"/>
-        <ImageView
-          android:layout_width="34dp"
-          android:layout_height="34dp"
-          android:layout_weight="1"
-          android:src="@drawable/vehicle"/>
-      </LinearLayout>
+          android:text="Tata 407"
+          style="@style/label_blue_small"
+          android:layout_height="wrap_content"/>
+
+        <com.porter.utils.PorterTextView
+          android:layout_width="wrap_content"
+          android:text="Tata Ace"
+          android:layout_alignParentRight="true"
+          style="@style/label_blue_small"
+          android:layout_height="wrap_content"/>
+      </RelativeLayout>
     </RelativeLayout>
   <Button
     android:layout_width="match_parent"
