@@ -48,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="45dip"
         android:layout_marginTop="20dip"
+        android:onClick="login"
         style="@style/button"
         android:text="LOG IN"/>
       </LinearLayout>
@@ -60,20 +61,6 @@
       android:layout_marginTop="20dip"
       android:gravity="center"
       android:weightSum="2">
-      <com.facebook.widget.LoginButton
-        android:id="@+id/authButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        />
-      <Button
-        android:id="@+id/gplus_signup"
-        android:layout_width="150dip"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dip"
-        android:background="@drawable/gplus_signup"
-        android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
       android:layout_width="match_parent"
@@ -91,6 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/button"
+        android:onClick="signup"
         android:text="SIGN UP"/>
     </LinearLayout>
   </LinearLayout>
