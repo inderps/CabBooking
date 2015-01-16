@@ -31,6 +31,8 @@ public class VehicleSelector extends RelativeLayout {
     tataAce.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
+          selectVehicle(R.id.tataace_layout, R.id.tataace_label);
+          unSelectVehicle(R.id.tata909_layout, R.id.tata909_label);
           new VehiclePopup(getContext(), new Vehicle());
       }
     });
@@ -39,6 +41,8 @@ public class VehicleSelector extends RelativeLayout {
     tata909.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
+        selectVehicle(R.id.tata909_layout, R.id.tata909_label);
+        unSelectVehicle(R.id.tataace_layout, R.id.tataace_label);
         new VehiclePopup(getContext(), new Vehicle());
       }
     });
