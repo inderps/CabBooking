@@ -4,7 +4,7 @@
     <shape android:shape="line" >
       <stroke
         android:width="3dp"
-        android:color="@color/blue" />
+        android:color="@color/navigation_background" />
     </shape>
   </item>
 </layer-list>
