@@ -6,7 +6,7 @@
       android:shape="oval">
 
       <solid
-        android:color="@color/navigation_background"/>
+        android:color="@color/navigation_divider"/>
       <size
         android:width="15dp"
         android:height="15dp"/>
