@@ -3,6 +3,7 @@ package com.porter.mobile;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.Menu;
@@ -11,7 +12,7 @@ import com.porter.utils.TypefaceSpan;
 
 import org.porter.R;
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends FragmentActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {

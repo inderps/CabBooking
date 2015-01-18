@@ -1,9 +1,9 @@
 package com.porter.mobile.navigation;
 
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 
@@ -67,7 +67,7 @@ public class NavigationDrawerActivity extends BaseActivity
 
   @Override
   public void onNavigationDrawerItemSelected(int position) {
-    FragmentManager fragmentManager = getFragmentManager();
+    FragmentManager fragmentManager = getSupportFragmentManager();
     Fragment fragment = drawerItems.get(position).getFragment();
     fragmentManager.beginTransaction()
         .replace(R.id.container, fragment)

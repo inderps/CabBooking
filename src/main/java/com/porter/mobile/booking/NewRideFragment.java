@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,6 +25,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.porter.mobile.BaseFragment;
@@ -107,7 +107,8 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
      super.onViewCreated(view, savedInstanceState);
-     addressView = (AutoCompleteTextView) view.findViewById(R.id.address);
+    initializeMap();
+    addressView = (AutoCompleteTextView) view.findViewById(R.id.address);
     bindAutoComplete();
     bindCurrentLocationIcon(view);
 
@@ -195,7 +196,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 
   @Override
   public void onConnected(Bundle bundle) {
-    initializeMap();
+    enableLocation();
     setCurrentLocation();
     bindMarker();
   }
@@ -225,8 +226,11 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
   }
 
   private void initializeMap() {
-    mGoogleMap = ((MapFragment) getFragmentManager().findFragmentById(
+    mGoogleMap = ((SupportMapFragment) getChildFragmentManager().findFragmentById(
         R.id.map)).getMap();
+  }
+
+  private void enableLocation(){
     mGoogleMap.setMyLocationEnabled(true);
   }
 

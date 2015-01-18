@@ -1,6 +1,6 @@
 package com.porter.mobile.navigation.item;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 import com.porter.mobile.booking.NewRideFragment;
 
