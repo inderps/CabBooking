@@ -19,7 +19,7 @@ public class MyRidesPagerAdapter extends FragmentPagerAdapter {
   public MyRidesPagerAdapter(FragmentManager fm, Context context) {
     super(fm);
     this.context = context;
-    fragments = new ArrayList<>();
+    fragments = new ArrayList<BaseFragment>();
 
     fragments.add(MyRidesTabFragment.newInstance("all_rides"));
     fragments.add(MyRidesTabFragment.newInstance("upcoming"));

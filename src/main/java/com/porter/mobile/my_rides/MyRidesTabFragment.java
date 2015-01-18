@@ -52,7 +52,7 @@ public class MyRidesTabFragment extends BaseFragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     listView = (ListView) view.findViewById(R.id.list);
-    rides = new ArrayList<>();
+    rides = new ArrayList<Ride>();
     rides.add(new Ride());
     rides.add(new Ride());
     rides.add(new Ride());
