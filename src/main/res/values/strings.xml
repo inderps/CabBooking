@@ -13,8 +13,12 @@
     <string name="privacy_policy_title">Privacy Policy</string>
     <string name="book_now">BOOK NOW</string>
     <string name="title_activity_register_new_user">SIGN UP</string>
-  <string name="title_activity_login">LOGIN</string>
-  <string name="Rs">\u20B9</string>
+    <string name="title_activity_login">LOGIN</string>
+    <string name="Rs">\u20B9</string>
+    <string name="my_rides_all_rides">ALL RIDES</string>
+    <string name="my_rides_upcoming">UPCOMING</string>
+    <string name="my_rides_completed">COMPLETED</string>
+
 
   <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
     <string name="title_section1">Section 1</string>
