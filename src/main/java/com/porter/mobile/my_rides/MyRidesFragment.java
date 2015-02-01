@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.porter.mobile.BaseFragment;
+import com.porter.utils.CustomProgress;
 
 import org.porter.R;
 

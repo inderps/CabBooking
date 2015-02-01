@@ -25,6 +25,11 @@
     <item name="android:textColor">@color/blue</item>
   </style>
 
+  <style name="loader_style">
+    <item name="android:textSize">17sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
   <style name="label_grey">
     <item name="android:textSize">17sp</item>
     <item name="android:textColor">@color/navigation_background</item>

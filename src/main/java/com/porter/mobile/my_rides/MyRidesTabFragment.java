@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.porter.mobile.BaseFragment;
 import com.porter.rest.model.Ride;
+import com.porter.utils.CustomProgress;
 
 import org.porter.R;
 
@@ -58,5 +59,6 @@ public class MyRidesTabFragment extends BaseFragment {
     rides.add(new Ride());
     adapter = new MyRidesListAdapter(this.getActivity(), rides);
     listView.setAdapter(adapter);
+    CustomProgress.removeProgressDialog();
   }
 }

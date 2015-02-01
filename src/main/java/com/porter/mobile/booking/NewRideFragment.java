@@ -32,6 +32,7 @@ import com.porter.mobile.BaseFragment;
 import com.porter.rest.model.AutosuggestedPlace;
 import com.porter.rest.model.Ride;
 import com.porter.rest.service.GooglePlacesService;
+import com.porter.utils.CustomProgress;
 
 import org.porter.R;
 
@@ -199,6 +200,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
     enableLocation();
     setCurrentLocation();
     bindMarker();
+    CustomProgress.removeProgressDialog();
   }
 
   private void bindMarker() {

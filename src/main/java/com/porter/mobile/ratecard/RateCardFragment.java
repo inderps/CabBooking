@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.porter.mobile.BaseFragment;
+import com.porter.utils.CustomProgress;
 import com.porter.utils.PorterTextView;
 
 import org.porter.R;
@@ -68,6 +69,8 @@ public class RateCardFragment extends BaseFragment {
 
     nightHoldingChargesLayout = (RateCardItemLayout) view.findViewById(R.id.night_charges);
     nightHoldingChargesLayout.setText("Night Holding Charges", 800, null);
+    CustomProgress.removeProgressDialog();
+
   }
 
   private void bindEngagementTypeSpinner(View view) {
