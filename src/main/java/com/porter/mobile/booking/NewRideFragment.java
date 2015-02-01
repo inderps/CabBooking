@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -24,7 +26,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -112,6 +113,7 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
     addressView = (AutoCompleteTextView) view.findViewById(R.id.address);
     bindAutoComplete();
     bindCurrentLocationIcon(view);
+    bindBookNowButton(view);
 
     if(mGoogleApiClient == null){
       mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
@@ -148,6 +150,23 @@ public class NewRideFragment extends BaseFragment implements LocationListener,
 //      mUpdatesRequested = false;
 //
 //    }
+  }
+
+  private void bindBookNowButton(View view) {
+    Button bookNow = (Button) view.findViewById(R.id.book_now);
+    bookNow.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        DropLocationFragment fragment = new DropLocationFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(DropLocationFragment.RIDE, ride);
+        fragment.setArguments(args);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+      }
+    });
   }
 
   private void bindAutoComplete() {
