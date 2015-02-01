@@ -10,6 +10,7 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -50,11 +51,8 @@ public class RateCardFragment extends BaseFragment {
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    Spinner vehicleTypeSpinner = (Spinner) view.findViewById(R.id.vehicle_type);
-    vehicleTypeSpinner.setAdapter(new SpinnerAdapter(this.getActivity(), R.layout.custom_spinner, vehicleTypeValues, SpinnerType.VEHICLE_TYPE));
-
-    Spinner engagementTypeSpinner = (Spinner) view.findViewById(R.id.engagement_type);
-    engagementTypeSpinner.setAdapter(new SpinnerAdapter(this.getActivity(), R.layout.custom_spinner, engagementTypeValues, SpinnerType.ENGAGEMENT_TYPE));
+    bindVehicleTypeSpinner(view);
+    bindEngagementTypeSpinner(view);
 
     baseFareLayout = (RateCardItemLayout) view.findViewById(R.id.base_fare);
     baseFareLayout.setText("Base Fare", 200, null);
@@ -70,6 +68,26 @@ public class RateCardFragment extends BaseFragment {
 
     nightHoldingChargesLayout = (RateCardItemLayout) view.findViewById(R.id.night_charges);
     nightHoldingChargesLayout.setText("Night Holding Charges", 800, null);
+  }
+
+  private void bindEngagementTypeSpinner(View view) {
+    Spinner engagementTypeSpinner = (Spinner) view.findViewById(R.id.engagement_type);
+    engagementTypeSpinner.setAdapter(new SpinnerAdapter(this.getActivity(), R.layout.custom_spinner, engagementTypeValues, SpinnerType.ENGAGEMENT_TYPE));
+    engagementTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      @Override
+      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> parent) {
+
+      }
+    });
+  }
+
+  private void bindVehicleTypeSpinner(View view) {
+    Spinner vehicleTypeSpinner = (Spinner) view.findViewById(R.id.vehicle_type);
+    vehicleTypeSpinner.setAdapter(new SpinnerAdapter(this.getActivity(), R.layout.custom_spinner, vehicleTypeValues, SpinnerType.VEHICLE_TYPE));
   }
 
   public class SpinnerAdapter extends ArrayAdapter<String> {
