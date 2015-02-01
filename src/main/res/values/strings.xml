@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Porter</string>
-    <string name="profiles_title">Profiles</string>
-    <string name="my_favourites_title">My Favourites</string>
-    <string name="book_my_rides_title">Book My Rides</string>
-    <string name="my_rides_title">My Rides</string>
-    <string name="rate_card_title">Rate Card</string>
-    <string name="about_us_title">About Us</string>
-    <string name="call_support_title">Call Support</string>
-    <string name="terms_of_use_title">Terms of Use</string>
-    <string name="privacy_policy_title">Privacy Policy</string>
-    <string name="book_now">BOOK NOW</string>
-    <string name="title_activity_register_new_user">SIGN UP</string>
-    <string name="title_activity_login">LOGIN</string>
-    <string name="Rs">\u20B9</string>
-    <string name="my_rides_all_rides">ALL RIDES</string>
-    <string name="my_rides_upcoming">UPCOMING</string>
-    <string name="my_rides_completed">COMPLETED</string>
-
-
+  <string name="app_name">Porter</string>
+  <string name="profiles_title">Profiles</string>
+  <string name="my_favourites_title">My Favourites</string>
+  <string name="book_my_rides_title">Book My Rides</string>
+  <string name="my_rides_title">My Rides</string>
+  <string name="rate_card_title">Rate Card</string>
+  <string name="about_us_title">About Us</string>
+  <string name="call_support_title">Call Support</string>
+  <string name="terms_of_use_title">Terms of Use</string>
+  <string name="privacy_policy_title">Privacy Policy</string>
+  <string name="book_now">BOOK NOW</string>
+  <string name="title_activity_register_new_user">SIGN UP</string>
+  <string name="title_activity_login">LOGIN</string>
+  <string name="Rs">\u20B9</string>
+  <string name="my_rides_all_rides">ALL RIDES</string>
+  <string name="my_rides_upcoming">UPCOMING</string>
+  <string name="my_rides_completed">COMPLETED</string>
+  <string-array name="vehicle_types">
+    <item>TATA ACE</item>
+    <item>TATA 909</item>
+  </string-array>
+  <string-array name="engagement_type">
+    <item>DISTANCE BASED</item>
+  </string-array>
   <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
@@ -29,5 +33,4 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
 </resources>

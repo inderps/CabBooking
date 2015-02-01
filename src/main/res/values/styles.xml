@@ -29,7 +29,10 @@
     <item name="android:textSize">17sp</item>
     <item name="android:textColor">@color/navigation_background</item>
   </style>
-
+  <style name="label_blue_medium">
+    <item name="android:textSize">15sp</item>
+    <item name="android:textColor">@color/blue</item>
+  </style>
 
   <style name="label_blue_small">
     <item name="android:textSize">12sp</item>
@@ -67,6 +70,12 @@
   </style>
 
   <style name="title_black">
+    <item name="android:textSize">15sp</item>
+    <item name="android:textColor">@color/black</item>
+  </style>
+
+  <style name="title_black_bold">
+    <item name="android:textStyle">bold</item>
     <item name="android:textSize">15sp</item>
     <item name="android:textColor">@color/black</item>
   </style>
