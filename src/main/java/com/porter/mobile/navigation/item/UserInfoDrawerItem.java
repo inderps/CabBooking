@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.porter.mobile.booking.NewRideFragment;
+import com.porter.mobile.my_rides.MyRidesFragment;
+import com.porter.mobile.profile.ProfileFragment;
 
 import org.porter.R;
 
@@ -32,5 +34,10 @@ public class UserInfoDrawerItem extends DrawerItem{
 
   @Override
   public void renderData(View view) {
+  }
+
+  @Override
+  public android.support.v4.app.Fragment getFragment(){
+    return new ProfileFragment();
   }
 }

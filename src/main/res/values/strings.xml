@@ -17,6 +17,7 @@
   <string name="my_rides_all_rides">ALL RIDES</string>
   <string name="my_rides_upcoming">UPCOMING</string>
   <string name="my_rides_completed">COMPLETED</string>
+  <string name="logout">LOGOUT</string>
   <string-array name="vehicle_types">
     <item>TATA ACE</item>
     <item>TATA 909</item>
