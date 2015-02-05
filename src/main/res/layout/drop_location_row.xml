@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:minHeight="50dip"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal"
+  android:paddingLeft="25dip"
+  android:paddingRight="25dip"
+  android:gravity="center_vertical">
+  <LinearLayout
+    android:layout_marginLeft="15dip"
+    android:gravity="center_vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.porter.utils.PorterTextView
+      android:id="@+id/ride_location"
+      android:layout_width="250dp"
+      android:text="Sector 27, Gurgaon"
+      android:maxEms="30"
+      android:ellipsize="end"
+      android:singleLine="true"
+      style="@style/title_black"
+      android:layout_height="wrap_content"/>
+    </LinearLayout>
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="right" >
+    <ImageView
+      android:id="@+id/remove_button"
+      android:layout_gravity="center_vertical"
+      android:src="@drawable/remove"
+      android:layout_width="25dip"
+      android:gravity="right"
+      android:layout_height="20dip"/>
+  </LinearLayout>
+</LinearLayout>

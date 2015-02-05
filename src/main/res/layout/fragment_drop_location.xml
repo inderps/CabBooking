@@ -42,6 +42,7 @@
           android:singleLine="true"
           android:textSize="12sp"/>
         <Button
+          android:id="@+id/addLocation"
           android:layout_width="25dp"
           android:layout_height="25dp"
           android:layout_marginTop="10dp"
@@ -49,6 +50,12 @@
           android:background="@drawable/add"
           android:layout_alignParentRight="true"/>
       </RelativeLayout>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/drop_locations"
+        ></LinearLayout>
       <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -75,12 +82,14 @@
           android:layout_height="wrap_content"
           android:gravity="right">
           <com.porter.utils.PorterTextView
+            android:id="@+id/time_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:text="12:00 AM"
             style="@style/title_black_bold"/>
           <Button
+            android:id="@+id/time_change_button"
             android:layout_width="wrap_content"
             style="@style/button_small"
             android:text="Change"
@@ -113,12 +122,14 @@
           android:layout_height="wrap_content"
           android:gravity="right">
           <com.porter.utils.PorterTextView
+            android:id="@+id/date_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:text="Jan 15, 2015"
             style="@style/title_black_bold"/>
           <Button
+            android:id="@+id/date_change_button"
             android:layout_width="wrap_content"
             style="@style/button_small"
             android:text="Change"
@@ -169,6 +180,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="15dp"
+        android:layout_marginBottom="25dp"
         android:gravity="center_horizontal">
         <Button
           android:layout_width="wrap_content"
