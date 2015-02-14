@@ -8,16 +8,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 
 import com.porter.mobile.BaseActivity;
-import com.porter.mobile.booking.NewRideFragment;
-import com.porter.mobile.navigation.item.AboutUsDrawerItem;
 import com.porter.mobile.navigation.item.BookMyRidesDrawerItem;
-import com.porter.mobile.navigation.item.CallSupportDrawerItem;
 import com.porter.mobile.navigation.item.DrawerItem;
-import com.porter.mobile.navigation.item.MyFavouritesDrawerItem;
 import com.porter.mobile.navigation.item.MyRidesDrawerItem;
-import com.porter.mobile.navigation.item.PrivacyPolicyDrawerItem;
-import com.porter.mobile.navigation.item.RateCardDrawerItem;
-import com.porter.mobile.navigation.item.TermsOfUseDrawerItem;
 import com.porter.mobile.navigation.item.UserInfoDrawerItem;
 
 import org.porter.R;
@@ -45,20 +38,14 @@ public class NavigationDrawerActivity extends BaseActivity
     mNavigationDrawerFragment.setUp(
         R.id.navigation_drawer,
         (DrawerLayout) findViewById(R.id.drawer_layout));
-    onNavigationDrawerItemSelected(2);
+    onNavigationDrawerItemSelected(1);
   }
 
   private void initializeDrawerItems() {
     drawerItems = new ArrayList<DrawerItem>();
     drawerItems.add(new UserInfoDrawerItem());
-    drawerItems.add(new MyFavouritesDrawerItem());
     drawerItems.add(new BookMyRidesDrawerItem());
     drawerItems.add(new MyRidesDrawerItem());
-    drawerItems.add(new RateCardDrawerItem());
-    drawerItems.add(new AboutUsDrawerItem());
-    drawerItems.add(new CallSupportDrawerItem());
-    drawerItems.add(new TermsOfUseDrawerItem());
-    drawerItems.add(new PrivacyPolicyDrawerItem());
   }
 
   public List<DrawerItem> getDrawerItems(){

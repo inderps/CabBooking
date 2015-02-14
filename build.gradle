@@ -35,12 +35,8 @@ repositories {
 }
 
 dependencies {
-    compile 'com.squareup.retrofit:retrofit:1.8.0'
-    compile 'com.google.code.gson:gson:2.3'
-    compile files('libs/activeandroid-3.0.jar')
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.google.android.gms:play-services:6.5.87'
-    compile 'com.facebook.android:facebook-android-sdk:3.21.1'
 }
 
 task wrapper(type: Wrapper) {
